@@ -1,0 +1,101 @@
+# angular
+/Rentool-Front-Angular/src/main/web/node/
+/Rentool-Front-Angular/src/main/web/rentool-web/node/
+/Rentool-Front-Angular/src/main/web/rentool-web/dist/
+/Rentool-Front-Angular/src/main/web/rentool-web/bazel-*
+/Rentool-Front-Angular/src/main/web/rentool-web/e2e_test.*
+/Rentool-Front-Angular/src/main/web/rentool-web/node_modules/
+/Rentool-Front-Angular/src/main/web/rentool-web/bower_components
+/Rentool-Front-Angular/src/main/web/rentool-web/tools/gulp-tasks/cldr/cldr-data/
+
+# Include when developing application packages.
+/Rentool-Front-Angular/src/main/web/rentool-web/pubspec.lock
+/Rentool-Front-Angular/src/main/web/rentool-web/.c9
+.idea/
+.settings/
+*.swo
+modules/.settings
+.vscode
+modules/.vscode
+
+# Don't check in secret files
+/Rentool-Front-Angular/src/main/web/rentool-web/*secret.js
+
+# Ignore npm/yarn debug log
+/Rentool-Front-Angular/src/main/web/rentool-web/npm-debug.log
+/Rentool-Front-Angular/src/main/web/rentool-web/yarn-error.log
+
+# build-analytics
+/Rentool-Front-Angular/src/main/web/rentool-web/.build-analytics
+
+# rollup-test output
+/Rentool-Front-Angular/src/main/web/rentool-web/modules/rollup-test/dist/
+
+# springboot
+/Rentool-Server-Spring/*#
+/Rentool-Server-Spring/*.iml
+/Rentool-Server-Spring/*.ipr
+/Rentool-Server-Spring/*.iws
+/Rentool-Server-Spring/*.jar
+/Rentool-Server-Spring/*.sw?
+/Rentool-Server-Spring/*~
+/Rentool-Server-Spring/.#*
+/Rentool-Server-Spring/.*.md.html
+/Rentool-Server-Spring/.DS_Store
+/Rentool-Server-Spring/.classpath
+/Rentool-Server-Spring/.factorypath
+/Rentool-Server-Spring/.gradle
+/Rentool-Server-Spring/.idea
+/Rentool-Server-Spring/.metadata
+/Rentool-Server-Spring/.project
+/Rentool-Server-Spring/.recommenders
+/Rentool-Server-Spring/.settings
+/Rentool-Server-Spring/.springBeans
+/build
+/code
+/Rentool-Server-Spring/MANIFEST.MF
+/Rentool-Server-Spring/_site/
+/Rentool-Server-Spring/activemq-data
+/Rentool-Server-Spring/bin
+/Rentool-Server-Spring/build
+/Rentool-Server-Spring/build.log
+/Rentool-Server-Spring/dependency-reduced-pom.xml
+/Rentool-Server-Spring/dump.rdb
+/Rentool-Server-Spring/interpolated*.xml
+/Rentool-Server-Spring/lib/
+/Rentool-Server-Spring/manifest.yml
+/Rentool-Server-Spring/overridedb.*
+/Rentool-Server-Spring/settings.xml
+/Rentool-Server-Spring/target
+/Rentool-Server-Spring/transaction-logs
+/Rentool-Server-Spring/.flattened-pom.xml
+/Rentool-Server-Spring/secrets.yml
+/Rentool-Server-Spring/.gradletasknamecache
+/Rentool-Server-Spring/.sts4-cache
+
+# Eclipse
+.classpath
+.project
+.settings/
+/Rentool-Server-Spring/.classpath
+/Rentool-Server-Spring/.project
+/Rentool-Server-Spring/.settings/
+/Rentool-Front-Angular/.classpath
+/Rentool-Front-Angular/.project
+/Rentool-Front-Angular/.settings/
+
+# Intellij
+.idea/
+*.iml
+*.iws
+
+# Mac
+.DS_Store
+
+# Maven
+log/
+target/
+/Rentool-Server-Spring/log/
+/Rentool-Server-Spring/target/
+/Rentool-Front-Angular/log/
+/Rentool-Front-Angular/target/
