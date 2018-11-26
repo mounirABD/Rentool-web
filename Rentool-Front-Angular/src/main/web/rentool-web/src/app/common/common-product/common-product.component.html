@@ -1,0 +1,65 @@
+<div [@cartAnimation]="isProductDragged ? 'expanded' : 'collapsed'" class="row cart-float-view" [style.opacity]="isProductDragged ? 1 : 0">
+  <img src="../../../assets/img/cart/add_to_cart_128.png">
+  <div class="col-sm-12">
+    <div dnd-droppable class="panel panel-info" (onDropSuccess)="dropProductSuccess($event)">
+      <div class="g-width-100 customized-drop"></div>
+      <div #droppedProducts class="dropped-products">
+        <div [hidden]="cartService.cartProducts.length === 0" class="font-white">
+          <table class="cart-float-table">
+            <tr *ngFor="let cartProduct of cartService.cartProducts">
+              <td style="width: 40px">
+                <img class="icon-product-image" src="{{cartProduct.product.images[0]}}">
+              </td>
+              <td>{{cartProduct.product.name}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!products || products.length === 0" class="full-width text-center font-cg-bold g-color-lightred g-mt-20 g-mb-30 g-font-size-16">No products found, please change your filtering...</div>
+<div #productEl dnd-draggable *ngFor="let product of products" class="col-6 col-lg-4 g-mb-30 g-brd-gray--hover-edited g-cursor-pointer--hover panel panel-default"
+  [attr.data-product]="stringifyProduct(product)" [dragEnabled]="true" [dragData]="stringifyProduct(product)" (click)="selectProduct(productEl.getAttribute('data-product'))"
+  (dragstart)="dragStart()" (dragend)="dragEnd()">
+  <figure class="g-pos-rel g-mb-20">
+    <img class="img-fluid img-product" [src]="product.mainImagePng? product.mainImagePng : product.images[0]" alt="productEl">
+
+    <span *ngIf="product.discount > 0" class="u-ribbon-v1 g-width-40 g-height-40 g-color-white g-bg-primary g-font-size-13 text-center text-uppercase g-rounded-50x g-top-10 g-right-minus-10 g-px-2 g-py-10">{{product.discount}}%</span>
+
+    <figcaption *ngIf="product.newArrival" class="w-100 g-bg-primary g-bg-black--hover text-center g-pos-abs g-bottom-0 g-transition-0_2 g-py-5">
+      <a class="g-color-white g-font-size-11 text-uppercase g-letter-spacing-1 g-text-underline--none--hover" href="#!">New Arrival</a>
+    </figcaption>
+  </figure>
+
+  <div class="media">
+    <div class="d-flex flex-column g-m-0">
+      <h4 class="h6 g-color-black">
+        <a class="u-link-v5 g-color-black g-color-primary--hover" href="#!">
+          {{product.name}}
+        </a>
+      </h4>
+      <!-- <a class="d-inline-block g-color-gray-dark-v5 g-font-size-13" href="#!">{{product.collection}}</a> -->
+      <span class="d-block g-color-black g-font-size-17" [class.g-color-primary]="eligibleDiscount(product.discount)">{{getPrice(product.price, product.discount)}}
+        <s *ngIf="eligibleDiscount(product.discount)" class="g-color-gray-dark-v4 g-font-weight-500 g-font-size-12">{{product.price.formattedPrice}}</s>
+      </span>
+
+    </div>
+
+    <ul class="list-inline media-body text-right">
+      <li class="list-inline-item align-middle mx-0">
+        <span class="u-icon-v1 u-icon-size--sm g-color-gray-dark-v5 g-color-primary--hover g-font-size-15 rounded-circle g-cursor-pointer--hover"
+          matTooltip="Add to Cart" data-placement="top" title="Add to Cart" (click)="addToCartClicked($event, product)">
+          <i class="icon-finance-100 u-line-icon-pro"></i>
+        </span>
+      </li>
+      <li class="list-inline-item align-middle mx-0">
+        <a class="u-icon-v1 u-icon-size--sm g-color-gray-dark-v5 g-color-primary--hover g-font-size-15 rounded-circle" href="#!"
+          matTooltip="Add to Favorites" data-placement="top" title="Add to Favorites">
+          <i class="icon-medical-022 u-line-icon-pro"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

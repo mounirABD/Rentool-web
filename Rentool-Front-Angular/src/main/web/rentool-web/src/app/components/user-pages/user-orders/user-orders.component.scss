@@ -1,0 +1,49 @@
+.collapse-order {
+    width: 35px;
+    height: 35px;
+    background: url('./../../../../assets/img/user/plus_minus.png') 0 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-repeat: no-repeat;
+    opacity: 0.7;
+}
+
+.expand-order {
+    width: 35px;
+    height: 35px;
+    background: url('./../../../../assets/img/user/plus_minus.png') 0 -35px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-repeat: no-repeat;
+    opacity: 0.7;
+}
+
+.line-height-1 {
+    line-height: 1.4em
+}
+
+.order-table-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+.order-table-header {
+    min-height: 64px;
+    padding: 0px;
+}
+
+::ng-deep .filter-input {
+    width: 100% !important;
+    max-width: 100% !important
+}
+
+::ng-deep .filter-input .mat-input-wrapper {
+    width: 100% !important;
+    max-width: 100% !important
+}
+
+::ng-deep .orders-period .mat-input-wrapper {
+    width:120px !important;
+}

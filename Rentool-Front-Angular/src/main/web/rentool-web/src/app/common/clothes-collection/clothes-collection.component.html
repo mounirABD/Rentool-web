@@ -1,0 +1,273 @@
+<ng-template #blockTemplate>
+    <div class="d-flex block-ui-template justify-content-center g-mt-20" style="top: 20px">
+        <div class="g-pa-10" style="background-color: rgba(50, 50, 50, 0.9); border-radius: 10px;">
+            <table>
+                <tr>
+                    <td>
+                        <img width="32" height="32" src="../../../assets/shopi-theme/img/preloaders/preloader-colors.svg">
+                    </td>
+                    <td class="g-font-size-20 g-color-white">Loading...</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</ng-template>
+<!-- <app-fav-view></app-fav-view> -->
+<app-common-header></app-common-header>
+
+<div class="container g-pt-100 g-pb-40" [style.background-image]="collectionHeader">
+    <div class="g-mb-50">
+        <span class="d-block g-color-white-opacity-0_8 g-font-weight-300 g-font-size-20">SHOPi</span>
+        <h3 class="g-color-white g-font-size-50 g-font-size-50 g-line-height-1_2 mb-0">Men Clothes Collection</h3>
+    </div>
+
+    <div class="d-flex justify-content-end">
+        <ul class="u-list-inline g-bg-gray-dark-v1 g-font-weight-300 g-rounded-50 g-py-5 g-px-20">
+            <li class="list-inline-item g-mr-5">
+                <a class="u-link-v5 g-color-white g-color-primary--hover" routerLink="/">Home</a>
+                <i class="g-color-white-opacity-0_5 g-ml-5">/</i>
+            </li>
+            <li class="list-inline-item g-mr-5">
+                <a class="u-link-v5 g-color-white g-color-primary--hover">Clothes Collection</a>
+                <i class="g-color-white-opacity-0_5 g-ml-5">/</i>
+            </li>
+            <li class="list-inline-item g-color-primary g-font-weight-400">
+                <span>{{ getType() }}</span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-9 order-md-2">
+            <div class="g-pl-15--lg">
+                <div class="d-flex justify-content-left align-items-center g-brd-bottom g-brd-gray-light-v4 g-pt-40 g-pb-20">
+                    <div class="g-mr-10">
+                        <div class="d-inline-block btn-group g-line-height-1_2 g-pr-15--lg">
+                            <mat-form-field class="g-width-150 mat-clothes-select">
+                                <mat-select placeholder="Brands" [formControl]="brandControl" multiple (change)="brandsChanged($event)">
+                                    <mat-select-trigger>
+                                        {{brandControl.value && brandControl.value.length > 0 ? brandControl.value[0].name : ''}}
+                                        <span *ngIf="brandControl.value?.length > 1" class="additional-selection">
+                                            (+{{brandControl.value.length - 1}} others)
+                                        </span>
+                                    </mat-select-trigger>
+                                    <mat-option *ngFor="let brand of brandsList" [value]="brand">{{brand.name}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="g-mr-10">
+                        <div class="d-inline-block btn-group g-line-height-1_2 g-pr-15--lg">
+                            <mat-form-field class="g-width-150 mat-clothes-select">
+                                <mat-select placeholder="Size" [formControl]="sizeControl" multiple>
+                                    <mat-optgroup *ngFor="let group of sizeGroups" [label]="group.name" [disabled]="group.disabled">
+                                        <mat-option *ngFor="let size of group.size" [value]="size">
+                                            {{ size }}
+                                        </mat-option>
+                                    </mat-optgroup>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="g-mr-10">
+                        <div class="d-inline-block btn-group g-line-height-1_2 g-pr-15--lg">
+                            <mat-form-field class="g-width-150 mat-clothes-select">
+                                <mat-select placeholder="Colors" [formControl]="colorControl" multiple (change)="colorsChanged($event)">
+                                    <mat-select-trigger>
+                                        {{colorControl.value ? colorControl.value[0] : ''}}
+                                        <span *ngIf="colorControl.value?.length > 1" class="additional-selection">
+                                            (+{{colorControl.value.length - 1}} others)
+                                        </span>
+                                    </mat-select-trigger>
+                                    <mat-option *ngFor="let color of colorsList" [value]="color">
+                                        <span class="bg-products-colors" [style.background-color]="color"></span>{{color | titlecase}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="g-mr-10 full-width">
+                        <div class="d-flex justify-content-end d-inline-block btn-group g-line-height-1_2">
+                            <ul class="list-inline mb-0">
+                                <li class="g-mb-5">
+                                    <a class="u-icon-v2 u-icon-size--xs g-brd-gray-light-v3 g-brd-black--hover g-color-gray-dark-v5 g-color-black--hover" href="#">
+                                        <i class="icon-list"></i>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a class="u-icon-v2 u-icon-size--xs g-brd-primary g-color-primary" href="#">
+                                        <i class="icon-grid"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="d-flex justify-content-left align-items-center g-brd-bottom g-brd-gray-light-v4 g-pt-20 g-pb-20">
+                    <div class="g-mr-10">
+                        <div class="d-inline-block btn-group g-line-height-1_2 g-pr-15--lg">
+                            <mat-form-field class="g-width-150 mat-clothes-select">
+                                <mat-select [(value)]="sortingOption" placeholder="Sorting">
+                                    <mat-option>Newest</mat-option>
+                                    <mat-option>Popular</mat-option>
+                                    <mat-option>Highest discount</mat-option>
+                                    <mat-option>Price low to high</mat-option>
+                                    <mat-option>Price high to low</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="g-mr-10">
+                        <div class="d-inline-block btn-group g-line-height-1_2 g-pr-15--lg">
+                            <mat-form-field class="g-width-150 mat-clothes-select">
+                                <mat-select placeholder="Materials" [formControl]="materialControl" multiple>
+                                    <mat-select-trigger>
+                                        {{materialControl.value ? materialControl.value[0] : ''}}
+                                        <span *ngIf="materialControl.value?.length > 1" class="additional-selection">
+                                            (+{{materialControl.value.length - 1}} others)
+                                        </span>
+                                    </mat-select-trigger>
+                                    <mat-option *ngFor="let material of materialsList" [value]="material">{{material}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+
+                    <div class="g-mr-10 full-width">
+                        <div class="d-flex justify-content-end d-inline-block btn-group g-line-height-1_2">
+                            <div class="text-center">
+                                <span class="g-color-gray-dark-v4 font-cg-bold">Price: </span>
+                                <span class="g-color-primary font-cg-bold">(
+                                    <span [innerHtml]="priceRangeHtml"></span> )
+                                    <span [innerHtml]="priceCurrency"></span>
+                                </span>
+                                <nouislider style="width: 200px;" [connect]="true" [min]="minPrice" [max]="maxPrice" [step]="1" [(ngModel)]="priceRange"
+                                    (ngModelChange)="priceChange($event)"></nouislider>
+                                <!-- <app-price-slider [currency]="priceCurrency" [min]="minPrice" [max]="maxPrice" [priceRange]="priceRange" [sliderWidth]="'200px'"></app-price-slider> -->
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="g-mr-10">
+                        <div class="d-inline-block btn-group g-line-height-1_2">
+                            <mat-slider [max]="maxPrice" [min]="minPrice" step="1" thumb-label="true" tick-interval="0" [(ngModel)]="minPriceValue">
+                            </mat-slider>
+                        </div>
+                    </div>
+
+                    <div class="g-mr-10">
+                        <div class="d-inline-block btn-group g-line-height-1_2">
+                            <mat-slider [max]="maxPrice" [min]="minPrice" step="1" thumb-label="true" tick-interval="0" [(ngModel)]="maxPriceValue">
+                            </mat-slider>
+                        </div>
+                    </div> -->
+
+
+                </div>
+
+                <div class="row g-mb-15">
+                    <div class="font-cg-bold g-font-size-16" style="color: #DE1818">{{errorMessage.text}}</div>
+                    <div class="full-width" *blockUI="'block-products'; message: 'Loading'; template: blockTemplate; delayStop: 500">
+                        <mat-paginator class="" style="outline: none;" [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+                            (page)="onPageChanged($event)">
+                        </mat-paginator>
+                        <app-common-product class="row g-ml-5" [returnPageUrl]="returnPageUrl" [returnSubPageUrl]="returnSubPageUrl"></app-common-product>
+
+                        <hr class="g-mb-15 g-mt-0">
+
+                        <div class="row d-flex justify-content-center align-items-center">
+                            <button mat-button class="font-cg-bold g-font-size-14" style="outline: none !important;" color="accent" (click)="previousPage()">Previous</button>
+                            <p class="g-mx-10 g-my-0">[{{getPageIndex()}}]</p>
+                            <button mat-button class="font-cg-bold g-font-size-14" style="outline: none !important;" color="primary" (click)="nextPage()">Next</button>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <!-- <mat-paginator class="g-mb-30" style="outline: none;" [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="onPageChanged($event)">
+                </mat-paginator> -->
+
+            </div>
+        </div>
+
+        <div class="col-md-3 order-md-1 g-brd-right--lg g-brd-gray-light-v4 g-pt-20">
+            <div class="g-pr-15--lg">
+                <a id="mega-menu-label-3" class="d-flex justify-content-center nav-link text-uppercase g-color-primary--hover g-px-5 g-font-size-16 font-cg-bold"
+                    style="margin-top: 4px">
+                    Clothing
+                </a>
+                <hr style="margin-top: 1.4rem;">
+                <mat-accordion>
+
+                    <mat-expansion-panel expanded="true" hideToggle="true" (opened)="getProducts('all')">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title class="font-cg-bold">
+                                View All
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel hideToggle="true" (opened)="getProducts('tops')">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title class="font-cg-bold">
+                                Tops
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <app-categories-labels [collection]="topsCollection" (click)=getProducts($event)></app-categories-labels>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel hideToggle="true" (opened)="getProducts('jeans')">
+                        <mat-expansion-panel-header class="font-cg-bold">
+                            <mat-panel-title>
+                                Jeans
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <app-categories-labels [collection]="jeansCollection" (click)=getProducts($event)></app-categories-labels>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel hideToggle="true" (opened)="unsupported('Outerwear')">
+                        <mat-expansion-panel-header class="font-cg-bold">
+                            <mat-panel-title>
+                                Outerwear
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <app-categories-labels [collection]="outerwareCollection" (click)=unsupported($event)></app-categories-labels>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel hideToggle="true" (opened)="unsupported('Suits & Blazers')">
+                        <mat-expansion-panel-header class="font-cg-bold">
+                            <mat-panel-title>
+                                Suits & Blazers
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <app-categories-labels [collection]="suitsCollection" (click)=unsupported($event)></app-categories-labels>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel hideToggle="true" (opened)="unsupported('Trousers')">
+                        <mat-expansion-panel-header class="font-cg-bold">
+                            <mat-panel-title>
+                                Trousers
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <app-categories-labels [collection]="trousersCollection" (click)=unsupported($event)></app-categories-labels>
+                    </mat-expansion-panel>
+
+                </mat-accordion>
+            </div>
+        </div>
+    </div>
+</div>
+<app-common-footer></app-common-footer>
