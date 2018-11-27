@@ -23,7 +23,6 @@ public class FooController {
 
     // API
 
-	
     // read - single
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
